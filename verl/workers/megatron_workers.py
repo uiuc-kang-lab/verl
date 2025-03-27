@@ -84,7 +84,14 @@ class ActorRolloutRefWorker(MegatronWorker):
         if not torch.distributed.is_initialized():
             rank = int(os.environ['LOCAL_RANK'])
             torch.distributed.init_process_group(backend="nccl")
-            torch.cuda.set_device(rank)
+            # Check if Ray is managing GPUs
+            if os.environ.get("RAY_MANAGING_GPUS", "0") == "1":
+                # When Ray manages GPUs, use device 0 which is the only GPU visible to the worker
+                # This ensures compatibility with Ray's GPU isolation via CUDA_VISIBLE_DEVICES
+                torch.cuda.set_device(0)
+            else:
+                # Legacy behavior - use the device corresponding to LOCAL_RANK
+                torch.cuda.set_device(rank)
 
             if self.config.actor.megatron.sequence_parallel:
                 os.environ['CUDA_DEVICE_MAX_CONNECTIONS'] = '1'
@@ -487,7 +494,15 @@ class CriticWorker(MegatronWorker):
         if not torch.distributed.is_initialized():
             rank = int(os.environ['LOCAL_RANK'])
             torch.distributed.init_process_group(backend="nccl")
-            torch.cuda.set_device(rank)
+
+            # Check if Ray is managing GPUs
+            if os.environ.get("RAY_MANAGING_GPUS", "0") == "1":
+                # When Ray manages GPUs, use device 0 which is the only GPU visible to the worker
+                # This ensures compatibility with Ray's GPU isolation via CUDA_VISIBLE_DEVICES
+                torch.cuda.set_device(0)
+            else:
+                # Legacy behavior - use the device corresponding to LOCAL_RANK
+                torch.cuda.set_device(rank)
 
             if self.config.megatron.sequence_parallel:
                 os.environ['CUDA_DEVICE_MAX_CONNECTIONS'] = '1'
@@ -685,7 +700,15 @@ class RewardModelWorker(MegatronWorker):
         if not torch.distributed.is_initialized():
             rank = int(os.environ['LOCAL_RANK'])
             torch.distributed.init_process_group(backend="nccl")
-            torch.cuda.set_device(rank)
+
+            # Check if Ray is managing GPUs
+            if os.environ.get("RAY_MANAGING_GPUS", "0") == "1":
+                # When Ray manages GPUs, use device 0 which is the only GPU visible to the worker
+                # This ensures compatibility with Ray's GPU isolation via CUDA_VISIBLE_DEVICES
+                torch.cuda.set_device(0)
+            else:
+                # Legacy behavior - use the device corresponding to LOCAL_RANK
+                torch.cuda.set_device(rank)
 
             if self.config.megatron.sequence_parallel:
                 os.environ['CUDA_DEVICE_MAX_CONNECTIONS'] = '1'
