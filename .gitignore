@@ -125,3 +125,6 @@ tests/e2e/toy_examples/deepspeed/synchronous/output.txt
 logs
 log
 outputs
+
+/prometheus-3.2.1.linux-amd64/
+/data/
