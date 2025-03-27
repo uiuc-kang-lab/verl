@@ -1,4 +1,5 @@
 # requirements.txt records the full set of dependencies for development
+
 accelerate
 codetiming
 datasets
@@ -12,9 +13,17 @@ peft
 pyarrow>=15.0.0
 pybind11
 pylatexenc
-ray[default]
+ray[default]==2.10.0
 tensordict<=0.6.2
 torchdata
 transformers
 # vllm==0.6.3.post1
 wandb
+
+# To match their Docker image exactly...
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch==2.4.0
+torchvision==0.19.0
+torchaudio==2.4.0
+megatron-core==0.11.0
+vllm==0.6.3
