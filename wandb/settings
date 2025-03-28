@@ -1,0 +1,5 @@
+[default]
+entity = ddkang-uiuc-rl-generalization
+project = verl
+base_url = https://api.wandb.ai
+
