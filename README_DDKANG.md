@@ -9,7 +9,7 @@ Base command: https://github.com/eric-haibin-lin/verl-data/blob/experiments/gsm8
 
 For a RunPod 2xL40S machine, we run:
 
-RAY_MANAGING_GPUS=1 PYTHONUNBUFFERED=1 python3 -m verl.trainer.main_ppo \
+WANDB_ENTITY=ddkang-uiuc-rl-generalization RAY_MANAGING_GPUS=1 PYTHONUNBUFFERED=1 python3 -m verl.trainer.main_ppo \
  data.train_files=/workspace/data/gsm8k/train.parquet \
  data.val_files=/workspace/data/gsm8k/test.parquet \
  data.train_batch_size=256 \

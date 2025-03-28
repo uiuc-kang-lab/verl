@@ -181,6 +181,7 @@ trainer:
   total_training_steps: null
   project_name: verl_examples
   experiment_name: gsm8k
+  wandb_entity: ddkang-uiuc-rl-generalization
   logger: [ 'console', 'wandb' ]
   val_generations_to_log_to_wandb: 0
   nnodes: 1

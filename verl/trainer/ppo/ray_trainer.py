@@ -982,6 +982,7 @@ class RayPPOTrainer(object):
             experiment_name=self.config.trainer.experiment_name,
             default_backend=self.config.trainer.logger,
             config=OmegaConf.to_container(self.config, resolve=True),
+            wandb_entity=self.config.trainer.get("wandb_entity", None),
         )
 
         self.global_steps = 0
